@@ -1,12 +1,13 @@
 public class Room {
-    public int roomNum;
-    public Room leftRoom;
-    public Room rightRoom;
-    public Room upRoom;
-    public Room downRoom;
+    public String roomName;
+    public String description;
+    public Room leftRoom, rightRoom, upRoom, downRoom;
+    public boolean been;
 
-    public Room(int roomNum){
-        this.roomNum = roomNum;
+    public Room(String roomName, String description){
+        this.roomName = roomName;
+        this.description = description;
+        this.been = false;
 
     }
     // link rooms together
@@ -41,8 +42,16 @@ public class Room {
     public Room getDownRoom(){
         return downRoom;
     }
-    public int getRoomNum(){
-        return roomNum;
+    public String getRoomName(){
+        return roomName;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void beenToTheRoom(){
+        this.been = true;
     }
 
 
