@@ -1,6 +1,8 @@
 public class Map {
-public Room startingRoom;
-public Room finnishRoom;
+private Room startingRoom;
+private Room finnishRoom;
+
+
 public Map(){
     builMap();
 }
@@ -27,10 +29,24 @@ public void builMap(){
     room8.setUpRoom(room5);
     room8.setRightRoom(room9);
 
+    Item lamp = new Item("old lamp", "lamp");
+    Item torch = new Item("worn out torch", "torch");
+
+    room2.addItem(lamp);
+    room2.addItem(torch);
+
 startingRoom = room1;
 startingRoom.beenToTheRoom();
 finnishRoom = room5;
 
 }
+
+// get methods
+    public Room getStartingRoom(){
+    return startingRoom;
+    }
+    public Room getFinnishRoom(){
+    return finnishRoom;
+    }
 
 }
