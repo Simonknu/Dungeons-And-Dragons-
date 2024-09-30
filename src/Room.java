@@ -97,8 +97,11 @@ public class Room {
     }
 
     public void showItems(){
+        System.out.println("Items in the room:");
         for (Item i : itemsInRoom){
             System.out.print(i.getName() + ", ");
+
         }
+        System.out.print("\n");
     }
 }

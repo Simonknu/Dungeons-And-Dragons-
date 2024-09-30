@@ -27,24 +27,8 @@ public class UserInterface {
                 case "west" -> controller.movePlayer("west");
                 case "help" -> showCommands();
                 case "inventory" -> controller.showInventory();
-                case "take" -> {
-                    if (!controller.getItemsInRoom().isEmpty()) {
-                        write("Which item would you like to take?");
-                        userInput = scanner.nextLine();
-                        controller.takeItem(userInput);
-                    } else {
-                        write("There are no item in this room");
-                    }
-                }
-                case "drop" -> {
-                    if (!controller.getInventory().isEmpty()) {
-                        write("Which item would you like to drop?");
-                        userInput = scanner.nextLine();
-                        controller.dropItem(userInput);
-                    } else {
-                        write("Your inventory is empty");
-                    }
-                }
+                case "take", "take " -> write("You need to specify what item do you want to take");
+                case "drop", "drop " -> write("You need to specify what item do you want to drop");
                 case "info" -> {
                     write(controller.getRoomDescription());
                     controller.showItems();
@@ -52,15 +36,34 @@ public class UserInterface {
                 case "exit" -> {
                     break outerloop;
                 }
-                default -> write(" That is not a command");
-            }
+                default -> {
 
+                    if (userInput.contains("take ")) {
+                        if (!controller.getItemsInRoom().isEmpty()) {
+
+                            controller.takeItem(userInput);
+                        } else {
+                            write("There are no items in this room");
+                        }
+                    } else if (userInput.contains("drop")) {
+                        if(!controller.getInventory().isEmpty()){
+                            controller.dropItem(userInput);
+                        } else {
+                            write("There are one items in you inventory ");
+                        }
+
+                    } else {
+                        write(" That is not a command");
+                    }
+                }
+            }
 
         }
 
 
     }
-    public void showCommands(){
+
+    public void showCommands() {
         System.out.println("List of commands:\nMove commands:");
         System.out.println("north");
         System.out.println("south");
@@ -75,7 +78,7 @@ public class UserInterface {
         System.out.println("'exit' to exit the game");
     }
 
-    public void write(String string){
+    public void write(String string) {
         System.out.println("> " + string);
     }
 }

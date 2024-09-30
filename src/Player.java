@@ -85,34 +85,37 @@ public class Player {
 
         while (iterator.hasNext()) {
             Item i = iterator.next();
-            if (name.equalsIgnoreCase(i.getFindName())) {
+            if (name.contains(i.getFindName())) {
                 inventory.add(i);
                 iterator.remove(); // Safely remove the item using the iterator
                 itemFound = true;
-                System.out.println("You have taken the " + name);
-                break; // Exit the loop once the item is found and taken
+                System.out.println("You have taken the " + i.getName());
+                break;
             }
         }
 
         if (!itemFound) {
-            System.out.println("There is not a " + name + " in this room");
+            System.out.println("There is not a '" + name.substring(5,name.length()) + "' in this room");
         }
     }
 
 
     public void dropItem(String name) {
         boolean itemFound = false;
-        for (int i = 0; i < inventory.size(); i++) {
-            Item j = inventory.get(i);
-            if (name.equalsIgnoreCase(j.getFindName())) {
-                inventory.remove(j);
-                roomPLayerIsIn.getItemsInRoom().add(j);
-                itemFound = true;
+        Iterator<Item> iterator = inventory.iterator();
 
+        while (iterator.hasNext()) {
+            Item i = iterator.next();
+            if (name.contains(i.getFindName())) {
+                iterator.remove();
+                roomPLayerIsIn.getItemsInRoom().add(i);
+                itemFound = true;
+                System.out.println("You dropped the " + name.substring(5,name.length()));
+                break;
             }
         }
         if (!itemFound) {
-            System.out.println("You dont have a " + name + " in your inventory");
+            System.out.println("You dont have a '" + name.substring(5,name.length()) + "' in your inventory");
         }
     }
 
