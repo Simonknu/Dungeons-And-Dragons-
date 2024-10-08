@@ -31,6 +31,9 @@ public AdventureController(){
     public ArrayList<Item> getItemsInRoom(){
     return player.getRoomPLayerIsIn().getItemsInRoom();
     }
+    public Room getfinnishRoom(){
+    return map.getFinnishRoom();
+    }
     //--------------------------Player methods-----------------------------
     public void movePlayer(String direction){
     player.movePlayer(direction);
@@ -38,13 +41,23 @@ public AdventureController(){
     public void showInventory(){
     player.showInventory();
     }
-    public void takeItem(String name){
-    player.takeItem(name);
+    public String takeItem(String name){
+    return player.takeItem(name);
     }
-    public void dropItem(String name){
-    player.dropItem(name);
+    public String dropItem(String name){
+     return player.dropItem(name);
     }
 
+    public String eatFood(String name){
+    return player.eatFood(name);
+    }
+
+    public String equipWeapon(String name){
+        return player.equipWeapon(name);
+    }
+    public String attack(){
+    return player.attack();
+    }
     // get methods for player
 
     public Room getRoomplayerIsIn(){
@@ -53,4 +66,8 @@ public AdventureController(){
     public ArrayList<Item> getInventory(){
      return player.getInventory();
     }
+    public int getHealth(){
+    return player.getHealth();
+    }
+
 }

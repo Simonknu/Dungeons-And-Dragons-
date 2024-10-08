@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Room {
     private String roomName;
@@ -13,7 +14,7 @@ public class Room {
     public boolean triedEast;
     */
 
-    public Room(String roomName, String description){
+    public Room(String roomName, String description) {
         this.roomName = roomName;
         this.description = description;
         this.been = false;
@@ -24,56 +25,65 @@ public class Room {
         this.triedWest = false;
 */
     }
+
     // link rooms together
-    public void setLeftRoom(Room leftRoom){
+    public void setLeftRoom(Room leftRoom) {
         this.leftRoom = leftRoom;
         leftRoom.rightRoom = this;
 
     }
-    public void setRightRoom(Room rightRoom){
+
+    public void setRightRoom(Room rightRoom) {
         this.rightRoom = rightRoom;
         rightRoom.leftRoom = this;
     }
-    public void setUpRoom(Room upRoom){
+
+    public void setUpRoom(Room upRoom) {
         this.upRoom = upRoom;
         upRoom.downRoom = this;
     }
-    public void setDownRoom(Room downRoom){
+
+    public void setDownRoom(Room downRoom) {
         this.downRoom = downRoom;
         downRoom.upRoom = this;
 
     }
+
     // get statements for every room and room number
-    public Room getLeftRoom(){
+    public Room getLeftRoom() {
         return leftRoom;
     }
-    public Room getRightRoom(){
+
+    public Room getRightRoom() {
         return rightRoom;
     }
-    public Room getUpRoom(){
+
+    public Room getUpRoom() {
         return upRoom;
     }
-    public Room getDownRoom(){
+
+    public Room getDownRoom() {
         return downRoom;
     }
-    public String getRoomName(){
+
+    public String getRoomName() {
         return roomName;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
-    public ArrayList<Item> getItemsInRoom(){
+    public ArrayList<Item> getItemsInRoom() {
         return itemsInRoom;
     }
 
-    public void beenToTheRoom(){
+    public void beenToTheRoom() {
         this.been = true;
     }
 
 
-    public void enterRoom(){
+    public void enterRoom() {
         if ((!this.been)) {
             System.out.println(getDescription());
             showItems();
@@ -92,16 +102,15 @@ public class Room {
 */
 // -----------------------------Items------------------------------------------------------
 
-    public void addItem(Item item){
+    public void addItem(Item item) {
         itemsInRoom.add(item);
     }
 
-    public void showItems(){
-        System.out.println("Items in the room:");
-        for (Item i : itemsInRoom){
-            System.out.print(i.getName() + ", ");
-
-        }
-        System.out.print("\n");
+    public void showItems() {
+        ArrayList<String> itemNames = (ArrayList<String>) itemsInRoom.stream()
+                .map(Item::getName)
+                .collect(Collectors.toList());
+        String result = String.join(", ", itemNames);
+        System.out.println("Items in the room: \n" + result);
     }
 }

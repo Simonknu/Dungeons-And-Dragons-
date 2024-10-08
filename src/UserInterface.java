@@ -19,43 +19,71 @@ public class UserInterface {
         while (true) {
 
             userInput = scanner.nextLine();
+            String[] word = userInput.split(" ");
 
-            switch (userInput) {
+            switch (word[0]) {
                 case "north" -> controller.movePlayer("north");
                 case "south" -> controller.movePlayer("south");
                 case "east" -> controller.movePlayer("east");
                 case "west" -> controller.movePlayer("west");
                 case "help" -> showCommands();
                 case "inventory" -> controller.showInventory();
-                case "take", "take " -> write("You need to specify what item do you want to take");
-                case "drop", "drop " -> write("You need to specify what item do you want to drop");
-                case "info" -> {
+                case "take", "take " -> {
+                    if (word.length > 1) {
+                        System.out.println(controller.takeItem(word[1]));
+
+                    } else {
+                        write("You need to specify what item do you want to take");
+                    }
+                }
+                case "drop", "drop " -> {
+                    if (word.length > 1) {
+                        System.out.println(controller.dropItem(word[1]));
+                    } else {
+                        write("You need to specify what item do you want to drop");
+                    }
+                }
+                case "eat", "eat " -> {
+                    if (word.length > 1) {
+                        System.out.println(controller.eatFood(word[1]));
+                    } else {
+                        write("You need to specify what ite do you want to eat");
+                    }
+                }
+                case "equip", "equip " -> {
+                    if (word.length > 1) {
+                        System.out.println(controller.equipWeapon(word[1]));
+                    } else {
+                        write("You need to specify what weapon do you want to equip");
+                    }
+                }
+                case "health" -> write("Your health is: " + controller.getHealth());
+                case "look" -> {
                     write(controller.getRoomDescription());
                     controller.showItems();
                 }
+                case "attack" -> write(controller.attack());
                 case "exit" -> {
                     break outerloop;
                 }
                 default -> {
 
-                    if (userInput.contains("take ")) {
-                        if (!controller.getItemsInRoom().isEmpty()) {
-
-                            controller.takeItem(userInput);
-                        } else {
-                            write("There are no items in this room");
-                        }
-                    } else if (userInput.contains("drop")) {
-                        if(!controller.getInventory().isEmpty()){
-                            controller.dropItem(userInput);
+                    if (userInput.contains("eat ")) {
+                        if (!controller.getInventory().isEmpty()) {
+                            write(controller.eatFood(userInput));
                         } else {
                             write("There are one items in you inventory ");
                         }
 
                     } else {
-                        write(" That is not a command");
+                        write("That is not a command");
                     }
                 }
+            }
+
+            if (controller.getRoomplayerIsIn() == controller.getfinnishRoom()) {
+                write("You got to the end of the maze, You won!!!!! Thanks for playing");
+                break;
             }
 
         }
