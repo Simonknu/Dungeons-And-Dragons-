@@ -24,8 +24,8 @@ public AdventureController(){
     public ArrayList<Item> getItemsInRoom(){
     return player.getRoomPLayerIsIn().getItemsInRoom();
     }
-    public void generalDescription(){
-        getRoomplayerIsIn().generalDescription();
+    public String generalDescription(){
+       return  getRoomplayerIsIn().generalDescription();
     }
     //--------------------------Player methods-----------------------------
     public void movePlayer(String direction){

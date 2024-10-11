@@ -79,19 +79,20 @@ public class Room {
     public String getDescription() {
         return description;
     }
+
     public boolean getLocked(){
         return locked;
     }
 
     // makes a general description with the rooms description, items and enemies
-    public void generalDescription(){
+    public String generalDescription(){
         System.out.println(description);
         System.out.println(showItems());
         if (enemy != null && !enemy.isDead()){
-            System.out.println("There is a " + enemy.getName() + " in the room");
-            enemy.getDescription();
+            return "There is a " + enemy.getName() + " in the room\n" + enemy.getDescription();
+
         } else {
-            System.out.println("There are no enemies in this room");
+            return "There are no enemies in this room";
         }
     }
 

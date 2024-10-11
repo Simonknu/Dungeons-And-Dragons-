@@ -250,7 +250,7 @@ public class Player {
 
     public String attack() {
         if (equipedWeapon != null) {
-            if (roomPLayerIsIn.getEnemy() != null) {
+            if (roomPLayerIsIn.getEnemy() != null && !roomPLayerIsIn.getEnemy().isDead()) {
                 if (equipedWeapon instanceof RangeWeapon) {
                     if (equipedWeapon.checkAmmo() != 0) {
                         roomPLayerIsIn.getEnemy().takeDamage(equipedWeapon.getDamage());

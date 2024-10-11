@@ -12,7 +12,7 @@ public class UserInterface {
         String userInput = " ";
 
         System.out.println("Welcome to the adventure game! You are in an old castle looking for an evil wizard known as 'The Necromancer' you need to kill him! write help to the the list of commands.");
-        controller.generalDescription();
+        System.out.println(controller.generalDescription());
 
 
         outerloop:
@@ -57,46 +57,32 @@ public class UserInterface {
                         System.out.println("You need to specify what weapon do you want to equip");
                     }
                 }
-                case "health" ->  System.out.println("Your health is: " + controller.getHealth());
+                case "health" -> System.out.println("Your health is: " + controller.getHealth());
                 case "look" -> {
-                    controller.generalDescription();
+                    System.out.println(controller.generalDescription());
                 }
-                case "attack" -> {
-                    System.out.println(controller.attack());
-                    if (controller.getRoomplayerIsIn().getEnemy().isDead()){
-
-                    }
-                }
+                case "attack" -> System.out.println(controller.attack());
                 case "exit" -> {
                     break outerloop;
                 }
-                default -> {
+                default -> System.out.println("That is not a command");
 
-                    if (userInput.contains("eat ")) {
-                        if (!controller.getInventory().isEmpty()) {
-                            System.out.println(controller.eatFood(userInput));
-                        } else {
-                            System.out.println("There are one items in you inventory ");
-                        }
-
-                    } else {
-                        System.out.println("That is not a command");
-                    }
-                }
             }
+
 
             if (controller.getFinalBoss().isDead()) {
                 System.out.println("You got to the end of the maze, You won!!!!! Thanks for playing");
                 break;
             }
-            if (controller.getHealth() <= 0){
+            if (controller.getHealth() <= 0) {
                 System.out.println("You passed away because of all the damage you received. Better luck next time!!");
+                break;
             }
-
         }
 
-
     }
+
+
 
     public void showCommands() {
         System.out.println("List of commands:\nMove commands:");
@@ -105,11 +91,13 @@ public class UserInterface {
         System.out.println("east");
         System.out.println("west");
         System.out.println("Other commands:");
-        System.out.println("'info' to get the description of your current room");
+        System.out.println("'look' to get the description of your current room");
         System.out.println("'help' get the command list");
         System.out.println("'inventory' go see your items");
-        System.out.println("'take' to take an item from the room");
-        System.out.println("'drop' to drop an item from your inventory in the room");
+        System.out.println("'take + item' to take an item from the room");
+        System.out.println("'drop + item' to drop an item from your inventory in the room");
+        System.out.println("'eat + food' to eat something");
+        System.out.println("'equip + weapon' to equip a weapon");
         System.out.println("'exit' to exit the game");
     }
 
