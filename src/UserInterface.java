@@ -11,8 +11,8 @@ public class UserInterface {
         Scanner scanner = new Scanner(System.in);
         String userInput = " ";
 
-        write("Welcome to the adventure game! You are in a maze made out of 9 room and you want to get to the middle one. \nWrite help to get the different commands.");
-        controller.getRoomDescription();
+        System.out.println("Welcome to the adventure game! You are in an old castle looking for an evil wizard known as 'The Necromancer' you need to kill him! write help to the the list of commands.");
+        controller.generalDescription();
 
 
         outerloop:
@@ -33,36 +33,40 @@ public class UserInterface {
                         System.out.println(controller.takeItem(word[1]));
 
                     } else {
-                        write("You need to specify what item do you want to take");
+                        System.out.println("You need to specify what item do you want to take");
                     }
                 }
                 case "drop", "drop " -> {
                     if (word.length > 1) {
                         System.out.println(controller.dropItem(word[1]));
                     } else {
-                        write("You need to specify what item do you want to drop");
+                        System.out.println("You need to specify what item do you want to drop");
                     }
                 }
                 case "eat", "eat " -> {
                     if (word.length > 1) {
                         System.out.println(controller.eatFood(word[1]));
                     } else {
-                        write("You need to specify what ite do you want to eat");
+                        System.out.println("You need to specify what ite do you want to eat");
                     }
                 }
                 case "equip", "equip " -> {
                     if (word.length > 1) {
                         System.out.println(controller.equipWeapon(word[1]));
                     } else {
-                        write("You need to specify what weapon do you want to equip");
+                        System.out.println("You need to specify what weapon do you want to equip");
                     }
                 }
-                case "health" -> write("Your health is: " + controller.getHealth());
+                case "health" ->  System.out.println("Your health is: " + controller.getHealth());
                 case "look" -> {
-                    write(controller.getRoomDescription());
-                    controller.showItems();
+                    controller.generalDescription();
                 }
-                case "attack" -> write(controller.attack());
+                case "attack" -> {
+                    System.out.println(controller.attack());
+                    if (controller.getRoomplayerIsIn().getEnemy().isDead()){
+
+                    }
+                }
                 case "exit" -> {
                     break outerloop;
                 }
@@ -70,20 +74,23 @@ public class UserInterface {
 
                     if (userInput.contains("eat ")) {
                         if (!controller.getInventory().isEmpty()) {
-                            write(controller.eatFood(userInput));
+                            System.out.println(controller.eatFood(userInput));
                         } else {
-                            write("There are one items in you inventory ");
+                            System.out.println("There are one items in you inventory ");
                         }
 
                     } else {
-                        write("That is not a command");
+                        System.out.println("That is not a command");
                     }
                 }
             }
 
-            if (controller.getRoomplayerIsIn() == controller.getfinnishRoom()) {
-                write("You got to the end of the maze, You won!!!!! Thanks for playing");
+            if (controller.getFinalBoss().isDead()) {
+                System.out.println("You got to the end of the maze, You won!!!!! Thanks for playing");
                 break;
+            }
+            if (controller.getHealth() <= 0){
+                System.out.println("You passed away because of all the damage you received. Better luck next time!!");
             }
 
         }
@@ -106,9 +113,7 @@ public class UserInterface {
         System.out.println("'exit' to exit the game");
     }
 
-    public void write(String string) {
-        System.out.println("> " + string);
-    }
+
 }
 
 

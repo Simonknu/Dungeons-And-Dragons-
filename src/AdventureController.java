@@ -11,17 +11,10 @@ public AdventureController(){
 
 }
     //-----------Room methods-------------------------------------
-    // show that player has entered the room
-    public void enterRoom() {
-        player.getRoomPLayerIsIn().enterRoom();
-    }
-    //add an item to the room
-    public void addItem(Item item){
-        player.getRoomPLayerIsIn().addItem(item);
-        }
+
         // show the items in a room
-    public void showItems(){
-    player.getRoomPLayerIsIn().showItems();
+    public String showItems(){
+    return player.getRoomPLayerIsIn().showItems();
     }
     // get methods for room
 
@@ -31,15 +24,15 @@ public AdventureController(){
     public ArrayList<Item> getItemsInRoom(){
     return player.getRoomPLayerIsIn().getItemsInRoom();
     }
-    public Room getfinnishRoom(){
-    return map.getFinnishRoom();
+    public void generalDescription(){
+        getRoomplayerIsIn().generalDescription();
     }
     //--------------------------Player methods-----------------------------
     public void movePlayer(String direction){
     player.movePlayer(direction);
     }
-    public void showInventory(){
-    player.showInventory();
+    public String showInventory(){
+    return player.showInventory();
     }
     public String takeItem(String name){
     return player.takeItem(name);
@@ -47,6 +40,7 @@ public AdventureController(){
     public String dropItem(String name){
      return player.dropItem(name);
     }
+
 
     public String eatFood(String name){
     return player.eatFood(name);
@@ -68,6 +62,10 @@ public AdventureController(){
     }
     public int getHealth(){
     return player.getHealth();
+    }
+    //---------------------------map Method-------------------------------------------------
+    public Enemy getFinalBoss(){
+    return map.getFinalBoss();
     }
 
 }
